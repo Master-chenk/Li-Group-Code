@@ -84,3 +84,20 @@ model = MyModel(input_channel=10, output_channel=10).to(device)
 python main.py --visualize-only False --epochs 100 --lr 0.001
 ```
 
+## 注
+
+添加的code需要在model上加上model的来源
+
+如：
+
+
+```python
+"""
+paper :U-Net: Convolutional Networks for Biomedical Image Segmentation
+https://arxiv.org/abs/1505.04597
+
+code : https://github.com/FengheTan9/U-Bench/blob/main/models/CNN/U_Net/U_Net.py
+
+"""
+
+```
