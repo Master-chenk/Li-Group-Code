@@ -1,8 +1,7 @@
-# Moving MNIST Video Prediction
+# LZU Li Group AI Code
 
-视频预测框架 - 基于 Moving MNIST 数据集
+基于 Moving MNIST 数据集
 
-## 快速开始
 
 ### 训练模型
 ```bash
@@ -14,11 +13,11 @@ python main.py --visualize-only False --batch-size 32 --epochs 50
 python main.py --num-samples 2
 ```
 
-## 如何添加/修改模型
+## 如何添加模型
 
-### 方法一：修改现有模型（推荐）
+### 修改现有模型
 
-在 `main.py` 中找到模型创建位置（约 Line 238）：
+在 `main.py` 中找到模型创建位置：
 
 ```python
 # ========== create model ==========
@@ -31,32 +30,9 @@ model = U_Net(input_channel=10, num_classes=10).to(device)
 
 直接替换为你的模型：
 ```python
-model = YourModel(input_channel=10, num_classes=10).to(device)
+model = MyModel(input_channel=10, output_channel=10).to(device)
 ```
 
-### 方法二：添加新模型文件
-
-1. 在 `model/` 目录下创建新模型文件，例如 `my_model.py`：
-
-```python
-import torch
-import torch.nn as nn
-
-class MyModel(nn.Module):
-    def __init__(self, input_channel=10, num_classes=10):
-        super(MyModel, self).__init__()
-        # 定义你的模型结构
-        self.conv1 = nn.Conv2d(input_channel, 64, 3, 1, 1)
-        # ...
-        self.conv_out = nn.Conv2d(64, num_classes, 1)
-
-    def forward(self, x):
-        # x shape: [B, C_in, H, W]
-        # 实现前向传播
-        x = self.conv1(x)
-        # ...
-        return self.conv_out(x)  # [B, C_out, H, W]
-```
 
 2. 在 `main.py` 中导入并使用：
 
@@ -64,13 +40,13 @@ class MyModel(nn.Module):
 from model.my_model import MyModel
 
 # 在模型创建位置替换
-model = MyModel(input_channel=10, num_classes=10).to(device)
+model = MyModel(input_channel=10, output_channel=10).to(device)
 ```
 
 ## 模型要求
 
 - **输入**: `[Batch, 10, Height, Width]` - 10帧灰度图像
-- **输出**: `[Batch, 10, Height, Width]` - 预测的后续10帧
+- **输出**: `[Batch, 10, Height, Width]` - 后续10帧灰度图像
 
 ## 项目结构
 
@@ -108,8 +84,3 @@ model = MyModel(input_channel=10, num_classes=10).to(device)
 python main.py --visualize-only False --epochs 100 --lr 0.001
 ```
 
-### 调整可视化
-```bash
-# 显示3组预测结果
-python main.py --num-samples 3
-```
