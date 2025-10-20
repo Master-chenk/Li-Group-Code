@@ -193,7 +193,7 @@ def visualize_predictions(model, test_loader, device, num_samples=2):
 def main():
     parser = argparse.ArgumentParser(description='Moving MNIST')
 
-    parser.add_argument('--visualize-only', action='store_true',default=True, help='only visualize predictions using a pre-trained model')
+    parser.add_argument('--visualize-only', action='store_true',default=False, help='only visualize predictions using a pre-trained model')
 
     parser.add_argument('--batch-size', type=int, default=32, help='batch size (default: 32)')
     parser.add_argument('--epochs', type=int, default=50, help='number of training epochs (default: 50)')
